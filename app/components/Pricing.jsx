@@ -2,111 +2,89 @@
 
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Check, X, Crown, Zap, Star, Gem, Copy, CheckCheck, ExternalLink } from 'lucide-react'
+import { Check, X, Copy, CheckCheck } from 'lucide-react'
 
-const LTC_ADDRESS = 'LfPghWtEBhyWda643o5c7DDt7WAs43VGzY'
+const LTC = 'LfPghWtEBhyWda643o5c7DDt7WAs43VGzY'
 
 const plans = [
   {
-    name: 'Free',
-    price: 0,
-    icon: Zap,
-    color: '#636770',
-    description: 'Perfect for trying out Hubix',
+    name: 'Free', price: 0, color: '#6b7084',
+    desc: 'Get started for free',
     features: [
-      { text: '1 active giveaway', included: true },
-      { text: 'Anti-spam filter only', included: true },
-      { text: '1 ticket category, 2 open', included: true },
-      { text: 'Basic invite tracking', included: true },
-      { text: 'Server info & utilities', included: true },
-      { text: 'Shop system', included: false },
-      { text: 'Review system', included: false },
-      { text: 'Full AutoMod', included: false },
-      { text: 'Audit logging', included: false },
-      { text: 'Bot customization', included: false },
+      [true, '1 active giveaway'],
+      [true, 'Anti-spam only'],
+      [true, '1 ticket category'],
+      [true, 'Basic invite tracking'],
+      [true, 'Utilities'],
+      [false, 'Shop system'],
+      [false, 'Reviews'],
+      [false, 'Full AutoMod'],
+      [false, 'Logging'],
     ],
   },
   {
-    name: 'Basic',
-    price: 8,
-    icon: Star,
-    color: '#00d4ff',
-    description: 'For growing communities',
+    name: 'Basic', price: 8, color: '#3b82f6',
+    desc: 'For growing servers',
     features: [
-      { text: '3 active giveaways', included: true },
-      { text: 'Anti-spam + invite + links + words', included: true },
-      { text: '3 ticket categories, 5 open', included: true },
-      { text: 'Invite leaderboard', included: true },
-      { text: 'Shop system (5 products)', included: true },
-      { text: 'Embed builder', included: true },
-      { text: 'Auto role', included: true },
-      { text: 'Review system', included: false },
-      { text: 'Transcripts', included: false },
-      { text: 'Bot customization', included: false },
+      [true, '3 active giveaways'],
+      [true, 'Extended AutoMod'],
+      [true, '3 ticket categories'],
+      [true, 'Invite leaderboard'],
+      [true, 'Shop (5 products)'],
+      [true, 'Embed builder'],
+      [true, 'Auto role'],
+      [false, 'Reviews & transcripts'],
+      [false, 'Bot customization'],
     ],
   },
   {
-    name: 'Premium',
-    price: 15,
-    icon: Crown,
-    color: '#a855f7',
-    popular: true,
-    description: 'The most popular choice',
+    name: 'Premium', price: 15, color: '#8b5cf6', popular: true,
+    desc: 'Most popular choice',
     features: [
-      { text: 'Unlimited giveaways', included: true },
-      { text: 'Full AutoMod (15 filters)', included: true },
-      { text: 'Unlimited tickets', included: true },
-      { text: 'Full invite tracking', included: true },
-      { text: 'Unlimited products', included: true },
-      { text: 'Review system', included: true },
-      { text: 'Ticket transcripts', included: true },
-      { text: 'Full audit logging', included: true },
-      { text: 'Bot nickname', included: true },
-      { text: 'Priority support', included: true },
+      [true, 'Unlimited giveaways'],
+      [true, 'Full AutoMod (15 filters)'],
+      [true, 'Unlimited tickets'],
+      [true, 'Complete invite tracking'],
+      [true, 'Unlimited products'],
+      [true, 'Review system'],
+      [true, 'Transcripts'],
+      [true, 'Full audit logging'],
+      [true, 'Bot nickname'],
     ],
   },
   {
-    name: 'Business',
-    price: 25,
-    icon: Gem,
-    color: '#f59e0b',
-    description: 'For serious operations',
+    name: 'Business', price: 25, color: '#f59e0b',
+    desc: 'For serious operations',
     features: [
-      { text: 'Everything in Premium', included: true },
-      { text: 'Multi-server (up to 3)', included: true },
-      { text: 'Bot custom avatar', included: true },
-      { text: 'Custom bot nickname', included: true },
-      { text: 'Priority ticket support', included: true },
-      { text: 'Early access to features', included: true },
-      { text: 'Dedicated support channel', included: true },
-      { text: 'Advanced analytics', included: true },
-      { text: 'Custom integrations', included: true },
-      { text: 'SLA guarantee', included: true },
+      [true, 'Everything in Premium'],
+      [true, 'Up to 3 servers'],
+      [true, 'Bot custom avatar'],
+      [true, 'Priority support'],
+      [true, 'Early feature access'],
+      [true, 'Dedicated support'],
+      [true, 'Advanced analytics'],
+      [true, 'Custom integrations'],
+      [true, 'SLA guarantee'],
     ],
   },
 ]
 
-function CopyButton({ text }) {
+function CopyBtn({ text }) {
   const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
+  const copy = async () => {
     await navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
-
   return (
-    <button
-      onClick={handleCopy}
-      className="flex items-center gap-1.5 text-xs text-dark-400 hover:text-white transition-colors bg-dark-800/50 px-3 py-1.5 rounded-lg border border-dark-700/50 hover:border-dark-600/50"
-    >
-      {copied ? <CheckCheck className="w-3.5 h-3.5 text-accent-green" /> : <Copy className="w-3.5 h-3.5" />}
-      {copied ? 'Copied!' : 'Copy'}
+    <button onClick={copy} className="shrink-0 text-xs text-[#6b7084] hover:text-white transition-colors flex items-center gap-1 bg-[#0b0d10]/60 px-2.5 py-1 rounded-md">
+      {copied ? <CheckCheck className="w-3 h-3 text-[#10b981]" /> : <Copy className="w-3 h-3" />}
+      {copied ? 'Copied' : 'Copy'}
     </button>
   )
 }
 
-function PaymentModal({ plan, onClose }) {
+function PayModal({ plan, onClose }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -115,76 +93,60 @@ function PaymentModal({ plan, onClose }) {
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative bg-dark-900 border border-dark-700/50 rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl"
+        exit={{ scale: 0.95, opacity: 0 }}
+        onClick={e => e.stopPropagation()}
+        className="relative bg-[#12141a] border border-[#1e2130] rounded-2xl p-6 max-w-sm w-full shadow-2xl"
       >
-        <h3 className="text-xl font-display font-bold text-white mb-2">
-          Purchase {plan.name} Plan
+        <h3 className="text-lg font-display font-bold text-[#eaecf2] mb-1">
+          Get {plan.name}
         </h3>
-        <p className="text-dark-400 text-sm mb-6">
-          ${plan.price}/month — Choose your payment method
-        </p>
+        <p className="text-sm text-[#6b7084] mb-6">${plan.price}/month</p>
 
         {/* PayPal */}
-        <div className="mb-4">
-          <a
-            href="https://discord.gg/UBqbzEXXcQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-3 bg-[#0070ba] hover:bg-[#005ea6] text-white font-semibold py-3.5 px-6 rounded-xl transition-all hover:shadow-lg hover:shadow-[#0070ba]/25"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/>
-            </svg>
-            Pay with PayPal
-          </a>
-          <p className="text-xs text-dark-500 mt-2 text-center">
-            Contact us on Discord to complete PayPal payment
-          </p>
-        </div>
+        <a
+          href="https://discord.gg/UBqbzEXXcQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 bg-[#0070ba] hover:bg-[#005ea6] text-white font-semibold py-3 px-5 rounded-xl transition-colors text-sm"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/>
+          </svg>
+          Pay with PayPal
+        </a>
+        <p className="text-[11px] text-[#6b7084] mt-2 text-center">Contact us on Discord to complete</p>
 
-        {/* Divider */}
         <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-dark-700/50" />
-          <span className="text-xs text-dark-500 uppercase tracking-wider">or</span>
-          <div className="flex-1 h-px bg-dark-700/50" />
+          <div className="flex-1 h-px bg-[#1e2130]" />
+          <span className="text-[11px] text-[#6b7084] uppercase tracking-wider">or</span>
+          <div className="flex-1 h-px bg-[#1e2130]" />
         </div>
 
         {/* LTC */}
-        <div className="bg-dark-800/50 border border-dark-700/50 rounded-xl p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 bg-[#345d9d] rounded-full flex items-center justify-center">
-              <span className="text-white text-xs font-bold">Ł</span>
+        <div className="bg-[#0b0d10] border border-[#1e2130] rounded-xl p-4">
+          <div className="flex items-center gap-2 mb-2.5">
+            <div className="w-5 h-5 rounded-full bg-[#345d9d] flex items-center justify-center">
+              <span className="text-white text-[10px] font-bold">Ł</span>
             </div>
-            <span className="text-sm font-semibold text-white">Litecoin (LTC)</span>
+            <span className="text-sm font-semibold text-[#eaecf2]">Litecoin</span>
           </div>
-
-          <div className="bg-dark-900/80 rounded-lg p-3 mb-3 flex items-center justify-between gap-2">
-            <code className="text-xs text-dark-300 break-all font-mono leading-relaxed">
-              {LTC_ADDRESS}
+          <div className="flex items-center gap-2 bg-[#12141a] rounded-lg p-2.5">
+            <code className="text-[11px] text-[#6b7084] break-all flex-1 font-mono leading-relaxed">
+              {LTC}
             </code>
-            <CopyButton text={LTC_ADDRESS} />
+            <CopyBtn text={LTC} />
           </div>
-
-          <p className="text-xs text-dark-500">
-            Send exactly <span className="text-white font-semibold">${plan.price}</span> worth of LTC, then open a ticket on our{' '}
-            <a href="https://discord.gg/UBqbzEXXcQ" target="_blank" rel="noopener noreferrer" className="text-hubix-400 hover:underline">
-              Discord
-            </a>{' '}
-            with the transaction ID.
+          <p className="text-[11px] text-[#6b7084] mt-2.5 leading-relaxed">
+            Send <span className="text-[#eaecf2] font-medium">${plan.price}</span> in LTC, then open a ticket on{' '}
+            <a href="https://discord.gg/UBqbzEXXcQ" target="_blank" rel="noopener noreferrer" className="text-[#5865F2] hover:underline">Discord</a> with TX ID.
           </p>
         </div>
 
-        {/* Close */}
-        <button
-          onClick={onClose}
-          className="w-full mt-5 py-2.5 text-sm text-dark-400 hover:text-white transition-colors"
-        >
+        <button onClick={onClose} className="w-full mt-4 py-2 text-sm text-[#6b7084] hover:text-white transition-colors">
           Cancel
         </button>
       </motion.div>
@@ -192,71 +154,59 @@ function PaymentModal({ plan, onClose }) {
   )
 }
 
-function PricingCard({ plan, index }) {
+function PlanCard({ plan, i }) {
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-50px' })
-  const [showPayment, setShowPayment] = useState(false)
-  const Icon = plan.icon
+  const inView = useInView(ref, { once: true, margin: '-40px' })
+  const [showPay, setShowPay] = useState(false)
 
   return (
     <>
       <motion.div
         ref={ref}
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className={`relative rounded-2xl p-6 lg:p-8 flex flex-col ${
+        transition={{ duration: 0.4, delay: i * 0.08 }}
+        className={`relative rounded-2xl p-5 sm:p-6 flex flex-col ${
           plan.popular
-            ? 'pricing-popular lg:scale-105 lg:-my-4'
-            : 'glass-card'
+            ? 'bg-[#5865F2]/[0.07] border-2 border-[#5865F2]/25'
+            : 'card'
         }`}
       >
-        {/* Popular Badge */}
         {plan.popular && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-            <span className="bg-gradient-to-r from-hubix-500 to-accent-purple text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg shadow-hubix-500/25">
-              MOST POPULAR
+            <span className="text-[11px] font-bold bg-[#5865F2] text-white px-3 py-1 rounded-full">
+              POPULAR
             </span>
           </div>
         )}
 
         {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center gap-3 mb-3">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: `${plan.color}15`, border: `1px solid ${plan.color}25` }}
-            >
-              <Icon className="w-5 h-5" style={{ color: plan.color }} />
-            </div>
-            <h3 className="text-xl font-display font-bold text-white">{plan.name}</h3>
+        <div className="mb-5">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-2 h-2 rounded-full" style={{ background: plan.color }} />
+            <span className="text-sm font-semibold text-[#eaecf2]">{plan.name}</span>
           </div>
-          <p className="text-sm text-dark-400">{plan.description}</p>
+          <p className="text-xs text-[#6b7084]">{plan.desc}</p>
         </div>
 
         {/* Price */}
         <div className="mb-6">
-          <div className="flex items-baseline gap-1">
-            <span className="text-4xl font-display font-extrabold text-white">
-              {plan.price === 0 ? 'Free' : `$${plan.price}`}
-            </span>
-            {plan.price > 0 && (
-              <span className="text-dark-400 text-sm">/month</span>
-            )}
-          </div>
+          <span className="text-3xl font-display font-extrabold text-[#eaecf2]">
+            {plan.price === 0 ? 'Free' : `$${plan.price}`}
+          </span>
+          {plan.price > 0 && <span className="text-sm text-[#6b7084] ml-1">/mo</span>}
         </div>
 
         {/* Features */}
-        <ul className="space-y-3 mb-8 flex-1">
-          {plan.features.map((feature, i) => (
-            <li key={i} className="flex items-start gap-3">
-              {feature.included ? (
-                <Check className="w-4.5 h-4.5 text-accent-green mt-0.5 shrink-0" />
-              ) : (
-                <X className="w-4.5 h-4.5 text-dark-600 mt-0.5 shrink-0" />
-              )}
-              <span className={`text-sm ${feature.included ? 'text-dark-200' : 'text-dark-500'}`}>
-                {feature.text}
+        <ul className="space-y-2.5 mb-6 flex-1">
+          {plan.features.map(([ok, text], j) => (
+            <li key={j} className="flex items-start gap-2.5">
+              {ok
+                ? <Check className="w-4 h-4 text-[#10b981] mt-0.5 shrink-0" />
+                : <X className="w-4 h-4 text-[#2b2d31] mt-0.5 shrink-0" />
+              }
+              <span className={`text-sm leading-snug ${ok ? 'text-[#c4c9d4]' : 'text-[#3a3d4d]'}`}>
+                {text}
               </span>
             </li>
           ))}
@@ -268,17 +218,14 @@ function PricingCard({ plan, index }) {
             href="https://discord.com/oauth2/authorize?client_id=1476729193466429620&permissions=8&integration_type=0&scope=bot"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-secondary text-center text-sm w-full flex items-center justify-center gap-2"
+            className="btn btn-ghost !text-sm text-center"
           >
             Add for Free
-            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         ) : (
           <button
-            onClick={() => setShowPayment(true)}
-            className={`text-center text-sm w-full flex items-center justify-center gap-2 ${
-              plan.popular ? 'btn-primary' : 'btn-secondary'
-            }`}
+            onClick={() => setShowPay(true)}
+            className={`btn !text-sm ${plan.popular ? 'btn-primary' : 'btn-ghost'}`}
           >
             Get {plan.name}
           </button>
@@ -286,82 +233,58 @@ function PricingCard({ plan, index }) {
       </motion.div>
 
       <AnimatePresence>
-        {showPayment && (
-          <PaymentModal plan={plan} onClose={() => setShowPayment(false)} />
-        )}
+        {showPay && <PayModal plan={plan} onClose={() => setShowPay(false)} />}
       </AnimatePresence>
     </>
   )
 }
 
 export default function Pricing() {
-  const titleRef = useRef(null)
-  const titleInView = useInView(titleRef, { once: true })
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true })
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-hubix-500/[0.04] rounded-full blur-[120px]" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Header */}
+    <section id="pricing" className="py-20 sm:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <motion.div
-          ref={titleRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          ref={ref}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-14"
         >
-          <span className="inline-block text-sm font-semibold text-hubix-400 tracking-wider uppercase mb-4">
-            Simple Pricing
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white mb-4">
-            Pick Your{' '}
-            <span className="gradient-text-static">Perfect Plan</span>
+          <p className="section-label">Pricing</p>
+          <h2 className="section-title text-[clamp(1.5rem,4vw,2.5rem)] mb-3">
+            Simple, transparent pricing
           </h2>
-          <p className="text-dark-300 max-w-2xl mx-auto text-lg">
-            Start free, upgrade when you need more. No hidden fees, cancel anytime.
+          <p className="section-desc mx-auto text-sm sm:text-base">
+            Start free. Upgrade when you&apos;re ready. Cancel anytime.
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-start">
-          {plans.map((plan, i) => (
-            <PricingCard key={plan.name} plan={plan} index={i} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 items-start">
+          {plans.map((p, i) => (
+            <PlanCard key={p.name} plan={p} i={i} />
           ))}
         </div>
 
-        {/* Payment Methods */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-sm text-dark-500 mb-3">Accepted Payment Methods</p>
-          <div className="flex items-center justify-center gap-6">
-            <div className="flex items-center gap-2 text-dark-400">
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/>
-              </svg>
-              <span className="text-sm font-medium">PayPal</span>
-            </div>
-            <div className="w-px h-4 bg-dark-700" />
-            <div className="flex items-center gap-2 text-dark-400">
-              <div className="w-5 h-5 bg-[#345d9d] rounded-full flex items-center justify-center">
-                <span className="text-white text-[10px] font-bold">Ł</span>
-              </div>
-              <span className="text-sm font-medium">Litecoin</span>
-            </div>
+        {/* Payment badges */}
+        <div className="flex items-center justify-center gap-5 mt-10 text-[#6b7084]">
+          <div className="flex items-center gap-1.5 text-xs">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/></svg>
+            PayPal
           </div>
-        </motion.div>
+          <div className="w-px h-3 bg-[#1e2130]" />
+          <div className="flex items-center gap-1.5 text-xs">
+            <div className="w-4 h-4 bg-[#345d9d] rounded-full flex items-center justify-center">
+              <span className="text-white text-[8px] font-bold">Ł</span>
+            </div>
+            Litecoin
+          </div>
+        </div>
       </div>
 
-      <div className="section-divider" />
+      <div className="divider mt-20 sm:mt-28" />
     </section>
   )
 }
