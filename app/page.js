@@ -9,15 +9,17 @@ import Footer from './components/Footer'
 
 export default function Home() {
   return (
-    <main className="relative z-10">
+    <>
       <Navbar />
-      <Hero />
-      <Features />
-      <Pricing />
-      <Reviews />
-      <FAQ />
-      <CTA />
+      <main>
+        <Hero />
+        <Features />
+        <Pricing />
+        <Reviews />
+        <FAQ />
+        <CTA />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
