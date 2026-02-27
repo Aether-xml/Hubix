@@ -1,67 +1,54 @@
-'use client'
-
-import { Bot, Heart } from 'lucide-react'
-
-const links = {
-  Product: [
-    { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Reviews', href: '#reviews' },
-    { name: 'FAQ', href: '#faq' },
-  ],
-  Community: [
-    { name: 'Discord Server', href: 'https://discord.gg/UBqbzEXXcQ', external: true },
-    { name: 'Add Bot', href: 'https://discord.com/oauth2/authorize?client_id=1476729193466429620&permissions=8&integration_type=0&scope=bot', external: true },
-  ],
-  Legal: [
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Privacy Policy', href: '#' },
-    { name: 'Refund Policy', href: '#' },
-  ],
-}
-
 export default function Footer() {
-  return (
-    <footer className="relative border-t border-dark-700/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+  const cols = {
+    Product: [
+      { name: 'Features', href: '#features' },
+      { name: 'Pricing', href: '#pricing' },
+      { name: 'Reviews', href: '#reviews' },
+      { name: 'FAQ', href: '#faq' },
+    ],
+    Community: [
+      { name: 'Discord', href: 'https://discord.gg/UBqbzEXXcQ', ext: true },
+      { name: 'Add Bot', href: 'https://discord.com/oauth2/authorize?client_id=1476729193466429620&permissions=8&integration_type=0&scope=bot', ext: true },
+    ],
+    Legal: [
+      { name: 'Terms', href: '#' },
+      { name: 'Privacy', href: '#' },
+    ],
+  }
 
+  return (
+    <footer className="border-t border-[#1e2130]">
+      <div className="max-w-6xl mx-auto px-5 sm:px-6 py-12">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-hubix-500 to-accent-purple flex items-center justify-center shadow-lg shadow-hubix-500/25">
-                <Bot className="w-5 h-5 text-white" />
+          <div className="col-span-2 sm:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-7 h-7 rounded-lg bg-[#5865F2] flex items-center justify-center">
+                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
-              <span className="text-xl font-display font-bold text-white tracking-tight">
-                Hub<span className="gradient-text-static">ix</span>
-              </span>
-            </a>
-            <p className="text-dark-400 text-sm leading-relaxed max-w-sm mb-4">
-              The all-in-one Discord bot for moderation, tickets, giveaways, invite tracking, and complete shop management.
-            </p>
-            <div className="flex items-center gap-1 text-dark-500 text-xs">
-              <span>Made with</span>
-              <Heart className="w-3 h-3 text-red-400 fill-red-400" />
-              <span>for Discord communities</span>
+              <span className="text-sm font-display font-bold text-[#eaecf2]">Hubix</span>
             </div>
+            <p className="text-xs text-[#6b7084] leading-relaxed max-w-[200px]">
+              The all-in-one Discord bot for your community.
+            </p>
           </div>
 
-          {/* Links */}
-          {Object.entries(links).map(([title, items]) => (
+          {/* Link columns */}
+          {Object.entries(cols).map(([title, items]) => (
             <div key={title}>
-              <h4 className="text-sm font-semibold text-white mb-4 tracking-wide uppercase">
-                {title}
-              </h4>
-              <ul className="space-y-2.5">
-                {items.map((link) => (
-                  <li key={link.name}>
+              <h4 className="text-xs font-semibold text-[#eaecf2] uppercase tracking-wider mb-3">{title}</h4>
+              <ul className="space-y-2">
+                {items.map(l => (
+                  <li key={l.name}>
                     <a
-                      href={link.href}
-                      target={link.external ? '_blank' : undefined}
-                      rel={link.external ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-dark-400 hover:text-hubix-400 transition-colors"
+                      href={l.href}
+                      target={l.ext ? '_blank' : undefined}
+                      rel={l.ext ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-[#6b7084] hover:text-[#5865F2] transition-colors"
                     >
-                      {link.name}
+                      {l.name}
                     </a>
                   </li>
                 ))}
@@ -70,14 +57,9 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-dark-700/30 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-dark-500">
-            © {new Date().getFullYear()} Hubix. All rights reserved.
-          </p>
-          <p className="text-xs text-dark-600">
-            Not affiliated with Discord Inc.
-          </p>
+        <div className="mt-10 pt-6 border-t border-[#1e2130] flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-[11px] text-[#6b7084]">© {new Date().getFullYear()} Hubix. All rights reserved.</p>
+          <p className="text-[11px] text-[#3a3d4d]">Not affiliated with Discord Inc.</p>
         </div>
       </div>
     </footer>
