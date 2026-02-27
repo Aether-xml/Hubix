@@ -11,8 +11,8 @@ export default function Footer() {
       { name: 'Add Bot', href: 'https://discord.com/oauth2/authorize?client_id=1476729193466429620&permissions=8&integration_type=0&scope=bot', ext: true },
     ],
     Legal: [
-      { name: 'Terms', href: '#' },
-      { name: 'Privacy', href: '#' },
+      { name: 'Terms', href: '/terms' },
+      { name: 'Privacy', href: '/privacy' },
     ],
   }
 
