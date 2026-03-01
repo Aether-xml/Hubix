@@ -7,7 +7,9 @@ import { ChevronDown } from 'lucide-react'
 const faqs = [
   { q: 'How do I add Hubix?', a: 'Click "Add to Discord", pick your server, authorize. Hubix is ready instantly with slash commands.' },
   { q: 'Is the free plan really free?', a: 'Yes. No credit card, no time limit. Basic features are free forever.' },
-  { q: 'What payments do you accept?', a: 'PayPal and Litecoin (LTC). Contact us on Discord to complete PayPal. For LTC, send to our address and open a ticket with your TX ID.' },
+  { q: 'What payments do you accept?', a: 'We accept Litecoin (LTC). Send the amount to our LTC address, then open a ticket on our Discord server with your transaction ID for instant activation.' },
+  { q: 'Does Hubix support prefix commands?', a: 'Yes! You can enable optional prefix commands (like ?help, ?clear) alongside slash commands. Each server can set its own custom prefix via /prefix.' },
+  { q: 'What makes Hubix different from other bots?', a: 'Hubix includes a full shop & order system with product listings, payment tracking, customer profiles, and review system — features that 99% of Discord bots simply don\'t offer. Plus, everything is in one bot.' },
   { q: 'Can I change my plan?', a: 'Yes, upgrade or downgrade anytime. Upgrades are instant, downgrades complete your current period first.' },
   { q: 'What happens when my sub expires?', a: 'You revert to the Free plan. No data is deleted — resubscribe and everything restores.' },
   { q: 'How do license keys work?', a: 'Use /redeem in your server to activate a key. Keys are one-time use, tied to a plan and duration.' },
