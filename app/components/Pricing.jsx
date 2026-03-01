@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Check, X, Copy, CheckCheck } from 'lucide-react'
 
-const LTC = 'LfPghWtEBhyWda643o5c7DDt7WAs43VGzY'
+const LTC = 'LWuAJP8pzbpMGtEY1dr4H5xKZgsz3xyMiD'
 
 const plans = [
   {
@@ -105,26 +105,6 @@ function PayModal({ plan, onClose }) {
           Get {plan.name}
         </h3>
         <p className="text-sm text-[#6b7084] mb-6">${plan.price}/month</p>
-
-        {/* PayPal */}
-        <a
-          href="https://discord.gg/UBqbzEXXcQ"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full flex items-center justify-center gap-2 bg-[#0070ba] hover:bg-[#005ea6] text-white font-semibold py-3 px-5 rounded-xl transition-colors text-sm"
-        >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/>
-          </svg>
-          Pay with PayPal
-        </a>
-        <p className="text-[11px] text-[#6b7084] mt-2 text-center">Contact us on Discord to complete</p>
-
-        <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-px bg-[#1e2130]" />
-          <span className="text-[11px] text-[#6b7084] uppercase tracking-wider">or</span>
-          <div className="flex-1 h-px bg-[#1e2130]" />
-        </div>
 
         {/* LTC */}
         <div className="bg-[#0b0d10] border border-[#1e2130] rounded-xl p-4">
@@ -268,18 +248,18 @@ export default function Pricing() {
           ))}
         </div>
 
-        {/* Payment badges */}
+        {/* Payment badge */}
         <div className="flex items-center justify-center gap-5 mt-10 text-[#6b7084]">
-          <div className="flex items-center gap-1.5 text-xs">
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 00-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 00.554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 01.92-.789h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.774-4.47z"/></svg>
-            PayPal
-          </div>
-          <div className="w-px h-3 bg-[#1e2130]" />
           <div className="flex items-center gap-1.5 text-xs">
             <div className="w-4 h-4 bg-[#345d9d] rounded-full flex items-center justify-center">
               <span className="text-white text-[8px] font-bold">Ł</span>
             </div>
-            Litecoin
+            Litecoin (LTC)
+          </div>
+          <div className="w-px h-3 bg-[#1e2130]" />
+          <div className="flex items-center gap-1.5 text-xs">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
+            Instant activation
           </div>
         </div>
       </div>
