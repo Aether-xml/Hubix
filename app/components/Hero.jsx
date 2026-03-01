@@ -48,7 +48,7 @@ export default function Hero() {
           className="text-[#6b7084] text-base sm:text-lg max-w-lg mx-auto mb-10 leading-relaxed"
         >
           Moderation, tickets, giveaways, invite tracking, and a complete
-          shop system — all in one place.
+          shop & order system — features most bots don&apos;t even offer.
         </motion.p>
 
         {/* Buttons */}
