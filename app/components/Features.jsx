@@ -4,7 +4,8 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import {
   Shield, Ticket, Gift, Users, ShoppingBag,
-  Star, ScrollText, UserPlus, Palette, Zap, Lock, BarChart3
+  Star, ScrollText, UserPlus, Palette, Zap, Lock, BarChart3,
+  Hammer, MessageSquare, Hash, Vote
 } from 'lucide-react'
 
 const features = [
@@ -12,6 +13,11 @@ const features = [
     icon: Shield, title: 'AutoMod',
     desc: '15 filters, anti-evasion, leet speak detection. 7 languages built-in.',
     color: '#5865F2',
+  },
+  {
+    icon: Hammer, title: 'Moderation',
+    desc: 'Kick, ban, timeout, clear, lock/unlock, slowmode, nuke — all with full logging.',
+    color: '#ed4245',
   },
   {
     icon: Ticket, title: 'Tickets',
@@ -24,14 +30,10 @@ const features = [
     color: '#8b5cf6',
   },
   {
-    icon: Users, title: 'Invite Tracking',
-    desc: 'Detailed stats, leaderboards, who-invited-who, leave tracking.',
-    color: '#10b981',
-  },
-  {
-    icon: ShoppingBag, title: 'Shop System',
-    desc: 'Products, orders, payment methods, auto-created order channels.',
+    icon: ShoppingBag, title: 'Shop & Orders',
+    desc: 'Full order system with products, payments, delivery & customer profiles — a feature most bots don\'t have.',
     color: '#f59e0b',
+    unique: true,
   },
   {
     icon: Star, title: 'Reviews',
@@ -39,9 +41,24 @@ const features = [
     color: '#f43f5e',
   },
   {
+    icon: Users, title: 'Invite Tracking',
+    desc: 'Detailed stats, leaderboards, who-invited-who, leave tracking.',
+    color: '#10b981',
+  },
+  {
     icon: ScrollText, title: 'Audit Logging',
     desc: 'Messages, members, roles, channels, bans, voice — everything.',
     color: '#6366f1',
+  },
+  {
+    icon: Vote, title: 'Polls',
+    desc: 'Create interactive polls with up to 5 options and emoji reactions.',
+    color: '#0ea5e9',
+  },
+  {
+    icon: Hash, title: 'Prefix Commands',
+    desc: 'Enable optional prefix commands alongside slash commands. Custom prefix per server.',
+    color: '#f97316',
   },
   {
     icon: UserPlus, title: 'Auto Role',
@@ -64,6 +81,11 @@ const features = [
     color: '#a855f7',
   },
   {
+    icon: MessageSquare, title: 'Role Management',
+    desc: 'Add or remove roles from users with a single command.',
+    color: '#64748b',
+  },
+  {
     icon: BarChart3, title: 'Utilities',
     desc: 'Server info, user info, avatar, banner, ping, nuke, and more.',
     color: '#06b6d4',
@@ -80,13 +102,20 @@ function Card({ feature, i }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: i * 0.04 }}
-      className="card p-5 sm:p-6 group"
+      className={`card p-5 sm:p-6 group ${feature.unique ? 'ring-1 ring-[#f59e0b]/20 bg-[#f59e0b]/[0.03]' : ''}`}
     >
-      <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-        style={{ background: `${feature.color}12`, border: `1px solid ${feature.color}18` }}
-      >
-        <feature.icon className="w-[18px] h-[18px]" style={{ color: feature.color }} />
+      <div className="flex items-start justify-between mb-4">
+        <div
+          className="w-10 h-10 rounded-xl flex items-center justify-center"
+          style={{ background: `${feature.color}12`, border: `1px solid ${feature.color}18` }}
+        >
+          <feature.icon className="w-[18px] h-[18px]" style={{ color: feature.color }} />
+        </div>
+        {feature.unique && (
+          <span className="text-[10px] font-bold uppercase tracking-wider bg-[#f59e0b]/10 text-[#f59e0b] px-2 py-0.5 rounded-full border border-[#f59e0b]/20">
+            Unique
+          </span>
+        )}
       </div>
       <h3 className="text-[15px] font-semibold text-[#eaecf2] mb-1.5 group-hover:text-[#5865F2] transition-colors">
         {feature.title}
